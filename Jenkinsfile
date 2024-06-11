@@ -60,7 +60,6 @@ pipeline {
             input {
                 message "Should we continue?"
                 ok "Yes, we should."
-                }
             }
             steps {
                 sh """
@@ -82,3 +81,4 @@ pipeline {
             echo 'I will run when pipeline is failed'
         }
     }
+}
