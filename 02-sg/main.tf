@@ -73,6 +73,7 @@ module "vpn" {
     common_tags = var.common_tags
     vpc_id = data.aws_ssm_parameter.vpc_id.value
     sg_name = "vpn"
+    ingress_rules = var.vpn_sg_rules
 }
 
 ### ---- Creation of Security Groups completed till here ------ #####
@@ -228,3 +229,14 @@ resource "aws_security_group_rule" "bastion_public" {
   cidr_blocks = ["0.0.0.0/0"]
   security_group_id = module.bastion.sg_id
 }
+
+# # vpn is accepting connections from public
+# resource "aws_security_group_rule" "vpn_public" {
+#   type              = "ingress"
+#   from_port         = 22
+#   to_port           = 22
+#   protocol          = "tcp"
+#   cidr_blocks = ["0.0.0.0/0"]
+#   security_group_id = module.vpn.sg_id
+# }
+
