@@ -43,7 +43,6 @@ pipeline {
             input {
                 message "Should we continue?"
                 ok "Yes, we should."
-                }
             }
             steps {
                 sh """
@@ -52,7 +51,6 @@ pipeline {
                 """
             }
         }
-        
         stage('Destroy') {
             when {
                 expression {
