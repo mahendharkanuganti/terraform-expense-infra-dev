@@ -26,21 +26,21 @@ resource "null_resource" "backend" {
 
   connection {
     type = "ssh"
-    host = module.backend.private_ip
     user = "ec2-user"
     password = "DevOps321"
+    host = module.backend.private_ip
   }
 
   provisioner "file" {
-        source      = "${var.common_tags.Component}.sh"
-        destination = "/tmp/${var.common_tags.Component}.sh"
+    source      = "${var.common_tags.Component}.sh"
+    destination = "/tmp/${var.common_tags.Component}.sh"
   }
 
   provisioner "remote-exec" {
-        inline = [
-            "chmod +x /tmp/${var.common_tags.Component}.sh",
-            "sudo sh /tmp/${var.common_tags.Component}.sh ${var.common_tags.Component} ${var.environment}"  ## sh bakend.sh backend dev
-        ]
+    inline = [
+      "chmod +x /tmp/${var.common_tags.Component}.sh",
+      "sudo sh /tmp/${var.common_tags.Component}.sh ${var.common_tags.Component} ${var.environment}"  ## sh bakend.sh backend dev
+    ]
   }
 }
 
@@ -126,7 +126,7 @@ resource "aws_autoscaling_group" "backend" {
   health_check_grace_period = 60
   health_check_type         = "ELB"
   desired_capacity          = 1
-  target_group_arns = [aws.aws_lb_target_group.arn]
+  target_group_arns = [aws_lb_target_group.backend.arn]
   launch_template {
     id = aws_launch_template.backend.id
     version = "$Latest"
@@ -171,7 +171,7 @@ resource "aws_autoscaling_policy" "backend" {
       predefined_metric_type = "ASGAverageCPUUtilization"
     }
 
-    target_value = 10.0
+    target_value = 90.0
   }
 }
 

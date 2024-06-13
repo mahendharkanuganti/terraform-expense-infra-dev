@@ -170,6 +170,15 @@ resource "aws_security_group_rule" "app_alb_bastion" {
   security_group_id = module.app_alb.sg_id
 }
 
+resource "aws_security_group_rule" "app_alb_frontend" {
+  type              = "ingress"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  source_security_group_id = module.frontend.sg_id # source is where you are getting traffic from
+  security_group_id = module.app_alb.sg_id
+}
+
 # frontend is accepting connections from web_alb
 resource "aws_security_group_rule" "frontend_web_alb" {
   type              = "ingress"

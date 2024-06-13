@@ -1,7 +1,7 @@
 module "db" {
   source = "terraform-aws-modules/rds/aws"
 
-  identifier = "${var.project_name}-${var.environment}"
+  identifier = "${var.project_name}-${var.environment}"   #expense-dev
 
   engine            = "mysql"
   engine_version    = "8.0"
@@ -74,7 +74,7 @@ module "records" {
 
   records = [
     {
-      name    = "db-${var.zone_name}"
+      name    = "db-${var.environment}"
       type    = "CNAME"
       ttl     = 1
       allow_overwrite = true

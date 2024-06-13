@@ -30,7 +30,7 @@ resource "aws_lb_listener" "http" {
     type = "fixed-response"
 
     fixed_response {
-      content_type = "text/plain"
+      content_type = "text/html"
       message_body = "<h1> This is fixed responce from APP ALB </h1>"
       status_code  = "200"
     }

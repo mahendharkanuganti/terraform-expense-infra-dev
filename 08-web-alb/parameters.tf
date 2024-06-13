@@ -1,6 +1,4 @@
-
 ## Creating the AWS SSM parameter store (/expense/dev/web_alb_listener_arn) and storing the web application load balancer for http
-
 resource "aws_ssm_parameter" "web_alb_listener_arn" {
     name = "/${var.project_name}/${var.environment}/web_alb_listener_arn"
     type = "String"
