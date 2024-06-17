@@ -79,7 +79,6 @@ resource "aws_cloudfront_distribution" "web_cdn" {
   }
 }
 
-
 module "records" {
   source  = "terraform-aws-modules/route53/aws//modules/records"
   version = "~> 2.0"
