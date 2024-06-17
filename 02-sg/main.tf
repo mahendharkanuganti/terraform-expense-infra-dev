@@ -239,6 +239,30 @@ resource "aws_security_group_rule" "bastion_public" {
   security_group_id = module.bastion.sg_id
 }
 
+## this is added as part of jenkins CICD
+# backend is accepting connections from default VPC
+resource "aws_security_group_rule" "backend_default_vpc" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  cidr_blocks = ["172.31.0.0/16"]  ## 172.31.0.0/16 - is the default VPC CIDR
+  security_group_id = module.backend.sg_id
+}
+
+## this is added as part of jenkins CICD
+# frontend is accepting connections from default VPC
+resource "aws_security_group_rule" "frontend_default_vpc" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  cidr_blocks = ["172.31.0.0/16"]  ## 172.31.0.0/16 - is the default VPC CIDR
+  security_group_id = module.frontend.sg_id
+}
+
+
+
 # # vpn is accepting connections from public
 # resource "aws_security_group_rule" "vpn_public" {
 #   type              = "ingress"
